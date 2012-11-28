@@ -46,7 +46,7 @@ if __name__ == "__main__":
 			result = json.loads(namesPage)
 			print src[1:-1] + ":" + parseJsonResult(namesPage)
 			
-	
+	f.close()
 
 	srcStr = """There are several ways to present the output of a program; data can be printed in a human-readable form, or written to a file for future use. This chapter will discuss some of the possibilities."""
 	namesPage = getPage(urllib2.quote(srcStr.encode('utf8')),srcLanguage,destLanguage)
