@@ -6,7 +6,7 @@ About
 
 It's a smart translator written by Python, using YQL instead of google translate API(since google translate API is not free).
 
-* It look up the Localizable.strings file to find all words to be translated.
+* It looks up the Localizable.strings file to find all words to be translated.
 * Supporting source language and destination language.
 
 Usage
