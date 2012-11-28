@@ -31,11 +31,10 @@ if __name__ == "__main__":
 		fileName = sys.argv[1]
 		srcLanguage = sys.argv[2]
 		destLanguage = sys.argv[3]
-	
-	
-	
-	
+		
 	f = codecs.open(fileName, "r", "utf-16")
+	fdest = codecs.open(fileName + "-" + destLanguage, "w", "utf-16")
+
 	for line in f:
 		#The translation key
 		pattern = re.compile(r'[\"\'].*[\"\']\s*=\s*[\"\'].*[\"\']')
@@ -44,9 +43,14 @@ if __name__ == "__main__":
 			src = line.split("=")[0].strip()
 			namesPage = getPage(urllib2.quote(src[1:-1].encode('utf8')),srcLanguage,destLanguage)
 			result = json.loads(namesPage)
-			print src[1:-1] + ":" + parseJsonResult(namesPage)
+			parsedResult = parseJsonResult(namesPage)
+			print src[1:-1] + ":" + parsedResult
+			destLine = "\"" + src[1:-1] + "\" = \"" + parsedResult + "\"\n" 
+			fdest.write(destLine)
+			
 			
 	f.close()
+	fdest.close()
 
 	srcStr = """There are several ways to present the output of a program; data can be printed in a human-readable form, or written to a file for future use. This chapter will discuss some of the possibilities."""
 	namesPage = getPage(urllib2.quote(srcStr.encode('utf8')),srcLanguage,destLanguage)
