@@ -47,6 +47,8 @@ if __name__ == "__main__":
 			print src[1:-1] + ":" + parsedResult
 			destLine = "\"" + src[1:-1] + "\" = \"" + parsedResult + "\"\n" 
 			fdest.write(destLine)
+		else:
+			fdest.write(line)
 			
 			
 	f.close()
