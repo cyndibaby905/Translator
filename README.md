@@ -8,6 +8,7 @@ It's a smart translator written by Python, using YQL instead of google translate
 
 * It looks up the Localizable.strings file to find all words to be translated.
 * Supporting source language and destination language.
+* You could find the android version here:https://github.com/cyndibaby905/Translator_android
 
 Usage
 -----
