@@ -3,6 +3,7 @@ import json
 import codecs
 import re
 import sys
+import os
 
 def getPage(words,src,dest):
 	url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20google.translate%20where%20q%3D%22" + words +"%22%20and%20target%3D%22" + dest + "%22%20and%20source%3D%22" + src +"%22%3B&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
@@ -31,9 +32,12 @@ if __name__ == "__main__":
 		fileName = sys.argv[1]
 		srcLanguage = sys.argv[2]
 		destLanguage = sys.argv[3]
-		
+	
+	if not (os.path.exists(destLanguage + ".lproj")):
+		os.mkdir(destLanguage + ".lproj")
+			
 	f = codecs.open(fileName, "r", "utf-16")
-	fdest = codecs.open(fileName + "-" + destLanguage, "w", "utf-16")
+	fdest = codecs.open(destLanguage + ".lproj/" + fileName, "w", "utf-16")
 
 	for line in f:
 		#The translation key
@@ -45,7 +49,7 @@ if __name__ == "__main__":
 			result = json.loads(namesPage)
 			parsedResult = parseJsonResult(namesPage)
 			print src[1:-1] + ":" + parsedResult
-			destLine = "\"" + src[1:-1] + "\" = \"" + parsedResult + "\"\n" 
+			destLine = "\"" + src[1:-1] + "\" = \"" + parsedResult + "\";\n" 
 			fdest.write(destLine)
 		else:
 			fdest.write(line)
